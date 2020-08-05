@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 {% include 'shared/_navbar.html' %}
 <h1>hi</h1>
+<img src="{% static 'images/쿠팡로고.png' %}" alt="profile image">
 {% endblock %}
