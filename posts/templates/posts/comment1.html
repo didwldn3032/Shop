@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+{% include 'shared/_navbar.html' %}
+<div class="container"></div>
+<form action="{% url 'posts:comment' %}" method="POST" enctype="multipart/form-data"></form>
+<form>
+    <div class="form-group">
+      <label for="exampleFormControlInput1">상품</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">내용</label>
+        <input type="text" class="form-control" name="content">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">평점</label>
+      <input type="text" class="form-control" name="content2">
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+    
+</form>
+</div>
+{% endblock %}

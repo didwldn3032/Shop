@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'shared/_navbar.html' %}
+{% if post.image %}
+<center><br><br><br><br><img src="{{post.image.url}}" align=></center>
+    
+{% endif %}
+<center>
+    <br><br><br><br>
+    <span class="h3" style="background-color:yellow" >상품명 : {{ post.title }} </span><br><br>
+    <h3>설명 : {{ post.content }} </h3><br>
+    <h3>가격 : {{ post.content2 }} </h3><br>
+    <h3>재고 : {{ post.content3 }} </h3><br>
+    {% if post.user %}
+    <h3>작성자 : {{ post.user }} </h3><br>
+    {% else %}
+    <h3>작성자 : 알 수 없음</h3><br>
+    {% endif %}
+    <h3>작성 시각 : {{ post.created_at }} </h3><br> 
+    <h3>수정 시각 : {{ post.updated_at }} </h3><br> 
+    <h3>조회수: {{post.view_count}}</h3><br>
+    
+    
+    <a href="{% url 'posts:comment1' %}" class="btn btn-primary">리뷰쓰기</a>
+    
+    {% if user == post.user %}
+    <a href="{% url 'posts:update' post.pk %}" class="btn btn-primary">수정하기</a>
+    <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제하기</a>
+    {% endif %}</center>
+
+{% endblock %}
