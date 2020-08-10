@@ -16,6 +16,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to = 'images/', null = False)
     user = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
     gender = models.CharField(max_length=1, null=True)
+    
 
 
 class Review(models.Model):
