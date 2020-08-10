@@ -4,26 +4,19 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=50, null=False)
-    content = models.TextField()
-    content2 = models.TextField(null = True)
-    content3 = models.TextField(null = True)
-    view_count = models.IntegerField(default = 0)
-    created_at = models.DateTimeField(auto_now_add = True)
-    updated_at = models.DateTimeField(auto_now = True)
-    image = models.ImageField(upload_to = 'images/', null = True)
-    user = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
 
-class Post2(models.Model):
+  
     title = models.CharField(max_length=50, null=False)
     content = models.TextField()
-    content2 = models.TextField(null = True)
-    content3 = models.TextField(null = True)
+    price = models.TextField(null = True)
+    remaining = models.TextField(null = True)
     view_count = models.IntegerField(default = 0)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-    image = models.ImageField(upload_to = 'images/', null = True)
+    image = models.ImageField(upload_to = 'images/', null = False)
     user = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
+    gender = models.CharField(max_length=1, null=True)
+
 
 class Review(models.Model):
     title = models.CharField(max_length=50, null=True)
