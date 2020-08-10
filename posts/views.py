@@ -7,26 +7,21 @@ def new(request):
 
 def create(request):
     if request.method == "POST":
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        price = request.POST.get('price')
-        remaining = request.POST.get('remaining')
-        image = request.FILES.get('image')
-        gender = request.POST.get('gender')
-        Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender) 
-        user = request.user
-        return redirect('posts:main')
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            price = request.POST.get('price')
+            remaining = request.POST.get('remaining')
+            image = request.FILES.get('image')
+            gender = request.POST.get('gender')
+            user = request.user
+            if gender == "F":
+                Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender, user=user) 
+                return redirect('posts:main')
+            else : 
+                Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender, user=user) 
+                return redirect('posts:main2')
 
-def create2(request):
-    if request.method == "POST":
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        content2 = request.POST.get('content2')
-        content3 = request.POST.get('content3')
-        image = request.FILES.get('image')
-        Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender) 
-        user = request.user
-        return redirect('posts:main2')        
+    
 
 def main(request):
     posts = Post.objects.all()
@@ -42,18 +37,20 @@ def show(request, id):
     post.save()
     return render(request, 'posts/show.html', {'post': post})
 
-
-def update(request, id):
-    post = get_object_or_404(Post, pk=id)
+def update(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
         post.title = request.POST['title']
         post.content = request.POST['content']
-        post.content = request.POST['content2']
-        post.content = request.POST['content3']
+        post.price = request.POST['price']
+        post.remaining = request.POST['remaining']
         post.image = request.FILES.get('image')
         post.save()
         return redirect('posts:show', post.id)
-    return render(request, 'posts/update.html', {"post":post})
+    return render(request, 'posts/update.html', {'post':post})
+
+    
+
 
 
 def delete(request, id):

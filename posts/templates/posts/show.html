@@ -10,8 +10,8 @@
     <br><br><br><br>
     <span class="h3" style="background-color:yellow" >상품명 : {{ post.title }} </span><br><br>
     <h3>설명 : {{ post.content }} </h3><br>
-    <h3>가격 : {{ post.content2 }} </h3><br>
-    <h3>재고 : {{ post.content3 }} </h3><br>
+    <h3>가격 : {{ post.price }} </h3><br>
+    <h3>재고 : {{ post.remaining }} </h3><br>
     {% if post.user %}
     <h3>작성자 : {{ post.user }} </h3><br>
     {% else %}
