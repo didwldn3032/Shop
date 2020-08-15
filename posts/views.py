@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
+from .forms import PostForm
 # Create your views here.
 
 def new(request):
@@ -7,19 +8,16 @@ def new(request):
 
 def create(request):
     if request.method == "POST":
-            title = request.POST.get('title')
+            title = request.POST.get('title',)
             content = request.POST.get('content')
             price = request.POST.get('price')
             remaining = request.POST.get('remaining')
             image = request.FILES.get('image')
-            gender = request.POST.get('gender')
+            _type = request.POST.get('_type')
             user = request.user
-            if gender == "F":
-                Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender, user=user) 
-                return redirect('posts:main')
-            else : 
-                Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender, user=user) 
-                return redirect('posts:main2')
+            Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, gender=gender, user=user, _type=_type) 
+            return redirect('posts:main')
+            
 
     
 
