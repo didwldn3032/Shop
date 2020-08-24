@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'shared/_navbar.html' %}
+<div class="container">
+    <h1>댓글 수정하기</h1>
+    <form action="{% url 'posts:update_comment' %}" method="POST"> 
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="comment_content">댓글 내용</label>
+            <textarea class="form-control" name="content" id="content" placeholder="내용을 입력해 주세요...">{{comment.content}}</textarea> <!-- 글 내용 추가 -->
+        </div>
+        <input type="submit" value="댓글 수정" class="btn btn-outline-primary"> 
+    </form>
+</div>
+{% endblock %}

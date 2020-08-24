@@ -25,12 +25,10 @@ class Post(models.Model):
     gender = models.CharField(max_length=1, null=True)
 
 
-class Review(models.Model):
-    title = models.CharField(max_length=50, null=True)
-    content = models.TextField(null = True)
-    price = models.TextField(null = True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name='review')
-    created_at = models.DateTimeField(auto_now_add=True)
+class Comment(models.Model): 
+    content = models.TextField() 
+    writer = models.ForeignKey(User, on_delete = models.CASCADE) 
+    post = models.ForeignKey(Post, on_delete = models.CASCADE, related_name='comments') 
+    created_at = models.DateTimeField(auto_now_add=True) 
     updated_at = models.DateTimeField(auto_now = True)
 # Create your models here.

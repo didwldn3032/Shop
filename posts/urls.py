@@ -1,10 +1,8 @@
 from django.urls import path
-from .views import main, new, create, show , update, delete, comment, review, comment1, main2
-
+from .views import *
 app_name = "posts" 
 urlpatterns = [
     path('new/', new, name="new"),
-    path('comment1/', comment1, name="comment1"),
     path('review/', review, name="review"),
     path('create/', create, name="create"),
     path('', main, name="main"),
@@ -12,6 +10,8 @@ urlpatterns = [
     path('show/<int:id>', show, name="show"),
     path('update/<int:post_id>/', update, name="update"),
     path('delete/<int:id>/', delete, name="delete"),
+    path('<int:post_id>/create_comment', create_comment, name="create_comment"),
+    path('<int:post_id>/update_comment/', update_comment, name="update_comment"),
     ]
 
 

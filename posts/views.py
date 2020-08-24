@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
-from .forms import PostForm
+from django.shortcuts import render, redirect, redirect, get_object_or_404 
+from .models import Post, Comment
 # Create your views here.
 
 def new(request):
@@ -29,11 +28,13 @@ def main2(request):
     posts = Post.objects.all()
     return render(request, 'posts/main2.html', {'posts': posts})
 
-def show(request, id):
+def show(request, id):    
     post = Post.objects.get(pk=id)
-    post.view_count +=1
-    post.save()
-    return render(request, 'posts/show.html', {'post': post})
+    post.view_count += 1
+    post.save()  
+    all_comments = post.comments.all().order_by('-created_at')
+    return render(request, 'posts/show.html', {'post': post, 'comments': all_comments})
+
 
 def update(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -57,17 +58,23 @@ def delete(request, id):
     return redirect("posts:main")
 
 
-def comment(request):
-    if request.method == "REVIEW":
-        content = request.POST.get('content')
-        content2 = request.POST.get('content2')
-        REVIEW.objects.create(content=content, content2=content2, content3=content3) 
-        user = request.user
-        return redirect('posts:review')
-
 def review(request):
     return render(request, 'posts/review.html')
 
-def comment1(request):
-    return render(request,'posts/comment1.html')
+
+
+def create_comment(request, post_id):
+    if request.method == "POST":
+        post = get_object_or_404 (Post, pk=post_id)
+        current_user = request.user
+        comment_content = request.POST.get('content')
+        Comment.objects.create(content=comment_content, writer=current_user, post=post)
+    return redirect ('posts:show', post.pk)
 # Create your views here.
+def update_comment(request, post_id):
+    if request.method == "POST":
+        post = get_object_or_404(Post, pk=post_id)
+        post.content = request.POST['content']
+        post.save()
+        return redirect('posts:show', post.id)
+    return render(request, 'posts/update_comment.html', {'post':post})
