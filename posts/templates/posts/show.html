@@ -40,22 +40,24 @@
 
     <div class="container mt-5 mb-5">
         {% for comment in comments %}
-        <div class="card">
-            <div class="card-body">
-                {% if comment.writer.username == 'user' %}        
-                <b>{{ comment.writer.last_name }}{{ comment.writer.first_name }}</b>
-                {% else %}
-                <b>{{ comment.writer }}</b>{% endif %} : {{comment.content}}<br>
-                <small>{{ comment.created_at }}</small></div>
-        </div>
-        {% if user == comment.writer %} 
-        <a href="{% url 'posts:update_comment' post.pk %}" class="btn btn-primary">수정</a> 
-        <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제</a> 
-        {% endif %}
+            <div class="card">
+                <div class="card-body">
+                    {% if comment.writer.username == 'user' %}        
+                    <b>{{ comment.writer.last_name }}{{ comment.writer.first_name }}</b>
+                    {% else %}
+                    <b>{{ comment.writer }}</b>{% endif %} : {{comment.content}}<br>
+                    <small>{{ comment.created_at }}</small></div>
+            </div>
+            {% if user == comment.writer %} 
+            <a href="{% url 'posts:update_comment' comment.pk %}" class="btn btn-primary">수정</a> 
+            <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제</a> 
+            {% endif %}
         {% endfor %}
        
         
     </div>
-
+    {% comment %} 저기가 원래 post.pk로 되어 있어서 post의 id값을 넘겨주고 있었음 {% endcomment %}
+    {% comment %} 우리가 원하는거는 댓글의 id라서 comment.pk로 변경해줌 {% endcomment %}
+    
     
 {% endblock %}

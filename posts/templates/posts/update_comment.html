@@ -3,14 +3,18 @@
 {% include 'shared/_navbar.html' %}
 <div class="container">
     <h1>댓글 수정하기</h1>
-    <form action="{% url 'posts:update_comment' %}" method="POST"> 
+    <form action="{% url 'posts:update_comment' comment.pk %}" method="POST">  
+    {% comment %} 여기 comment의 id값을 파라미터로 넘겨주는게 없었어. 그거 땜에 에러 나는건데 엉뚱한 곳에서만 찾고 있었음 {% endcomment %}
+    {% comment %} 여기까지하면 수정 문제 없이 될거임 아니네 문제있네{% endcomment %}
         {% csrf_token %}
-        
         <div class="form-group">
-            <label for="comment_content">댓글 내용</label>
+            <label for="content">댓글 내용</label>
             <textarea class="form-control" name="content" id="content" placeholder="내용을 입력해 주세요...">{{comment.content}}</textarea> <!-- 글 내용 추가 -->
         </div>
         <input type="submit" value="댓글 수정" class="btn btn-outline-primary"> 
     </form>
 </div>
 {% endblock %}
+
+
+{% comment %} 해결. 다시 views.py 로 ㄲ {% endcomment %}
