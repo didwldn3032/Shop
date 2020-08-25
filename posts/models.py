@@ -22,7 +22,6 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now = True, verbose_name="수정시간")
     image = models.ImageField(upload_to = 'images/', null = True, verbose_name="상품사진")
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
-    gender = models.CharField(max_length=1, null=True)
 
 
 class Comment(models.Model): 

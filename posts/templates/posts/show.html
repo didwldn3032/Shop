@@ -12,10 +12,14 @@
     <h3>설명 : {{ post.content }} </h3><br>
     <h3>가격 : {{ post.price }} </h3><br>
     <h3>재고 : {{ post.remaining }} </h3><br>
-    {% if post.user %}
-    <h3>작성자 : {{ post.user }} </h3><br>
-    {% else %}
-    <h3>작성자 : 알 수 없음</h3><br>
+    {% if post.writer %} 
+        {% if post.writer.username == 'user' %}        
+            <h3>작성자 : {{ post.writer.last_name }}{{ post.writer.first_name }} </h3>    
+        {% else %}        
+            <h3>작성자 : {{ post.writer }}</h3>    
+        {% endif %}
+    {% else %} 
+        <h3> 작성자: 알 수 없음</h3><br> 
     {% endif %}
     <br>
 	 <h3>글 내용 : {{ post.content }} </h3>
@@ -28,7 +32,6 @@
         <a href="{% url 'posts:update' post.pk %}" class="btn btn-primary">수정</a> 
         <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제</a> 
     {% endif %}
-
     
     <div class="container mt-5">
         <form class="form-row" action="{% url 'posts:create_comment' post.id %}" method="POST">
@@ -50,14 +53,12 @@
             </div>
             {% if user == comment.writer %} 
             <a href="{% url 'posts:update_comment' comment.pk %}" class="btn btn-primary">수정</a> 
-            <a href="{% url 'posts:delete' post.pk %}" class="btn btn-danger">삭제</a> 
+            <a href="{% url 'posts:delete_comment' comment.pk %}" class="btn btn-danger">삭제</a> 
             {% endif %}
         {% endfor %}
        
         
     </div>
-    {% comment %} 저기가 원래 post.pk로 되어 있어서 post의 id값을 넘겨주고 있었음 {% endcomment %}
-    {% comment %} 우리가 원하는거는 댓글의 id라서 comment.pk로 변경해줌 {% endcomment %}
-    
+
     
 {% endblock %}
