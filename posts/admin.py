@@ -7,7 +7,6 @@ from .models import *
 class PostAdmin(admin.ModelAdmin):
     list_display = (
         'id',
-        '_type',
         'title',
         'view_count',
         'created_at',
