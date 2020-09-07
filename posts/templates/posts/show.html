@@ -12,11 +12,11 @@
     <h3>설명 : {{ post.content }} </h3><br>
     <h3>가격 : {{ post.price }} </h3><br>
     <h3>재고 : {{ post.remaining }} </h3><br>
-    {% if post.writer %} 
-        {% if post.writer.username == 'user' %}        
-            <h3>작성자 : {{ post.writer.last_name }}{{ post.writer.first_name }} </h3>    
+    {% if post.user %} 
+        {% if post.user.username == 'user' %}        
+            <h3>작성자 : {{ post.user.last_name }}{{ post.user.first_name }} </h3>    
         {% else %}        
-            <h3>작성자 : {{ post.writer }}</h3>    
+            <h3>작성자 : {{ post.user.username }}</h3>    
         {% endif %}
     {% else %} 
         <h3> 작성자: 알 수 없음</h3><br> 
@@ -42,7 +42,11 @@
             좋아요 {{ post.like_count }}개      
         </a>
         {% for like_user in post.like_user_set.all %}
-            {{ post.like_users.name}}   
+            {% if like_user.username == 'user' %}        
+                {{ like_user.last_name }}{{ like_user.first_name }}
+            {% else %}        
+                {{ like_user.username }}
+            {% endif %}
         {% endfor %}   
     </div>
     <div class="container mt-5">
