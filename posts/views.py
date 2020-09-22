@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, redirect, get_object_or_404 
 from .models import Post, Comment
+from .forms import PostForm
 import pdb
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -7,17 +8,16 @@ from django.contrib.auth.decorators import login_required
 def new(request):
     return render(request,'posts/new.html')
 
+@login_required
 def create(request):
     if request.method == "POST":
-            title = request.POST.get('title',)
-            content = request.POST.get('content')
-            price = request.POST.get('price')
-            remaining = request.POST.get('remaining')
-            image = request.FILES.get('image')
-            user = request.user
-            Post.objects.create(title=title, content=content, price=price, remaining=remaining, image = image, user=user) 
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
             return redirect('posts:main')
-            
+    else:
+        form = PostForm()
+        return render(request, 'posts/new2.html', {'form': form})
 
     
 

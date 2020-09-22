@@ -1,39 +1,33 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Post
 
 
-class PostForm(forms.ModelForm):
-    _type = forms.ChoiceField(
-        widget=forms.RadioSelect,
-        label="게시글 종류",
-        choices=Post.POST_TYPES,
-        required=True
-    )
+class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['title', '_type', 'content', 'image', 'price', 'remaining', 'gender']
+        fields = [
+            'title',
+            'content', 
+            'image', 
+            'price', 
+            'remaining',
+        ]
         labels = {
-            'title': '제목', 
-            'content': '내용',
-            'image': '게시글 사진',
-            'price' : '가격',
-            'remaining' : '재고',
-            'gender' : '성별',
+            'title': ('제목'), 
+            'content': ('내용'),
+            'image': ('게시글 사진'),
+            'price' : ('가격'),
+            'remaining' : ('재고'),
         }
-        widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'content': forms.Textarea(attrs={
-                'class': 'form-control'
-            }),
-            'price': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'remaining': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'gender': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-        }
+    help_text = {
+        'title': ('제목을 입력해주세요'),
+        'content': ('내용을 입력해주세요'),
+        'price': ('가격을 입력해주세요'),
+        'remaining': ('재고를 입력해주세요'),
+    }
+
+    def save(self, **kwargs):
+        post = super().save(commit=False)
+        post.user = kwargs.get('user', None)
+        post.save()
+        return post

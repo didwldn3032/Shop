@@ -11,7 +11,7 @@ class Post(models.Model):
     view_count = models.IntegerField(default = 0, verbose_name="조회수")
     created_at = models.DateTimeField(auto_now_add = True, verbose_name="생성시간")
     updated_at = models.DateTimeField(auto_now = True, verbose_name="수정시간")
-    image = models.ImageField(upload_to = 'images/', null = True, verbose_name="상품사진")
+    image = models.ImageField(upload_to = 'images/', null = True, verbose_name="상품사진", blank="true")
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 
 
