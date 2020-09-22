@@ -2,9 +2,8 @@ from django.urls import path
 from .views import *
 app_name = "posts" 
 urlpatterns = [
-    path('new/', new, name="new"),
+    path('new/', create, name="create"),
     path('review/', review, name="review"),
-    path('create/', create, name="create"),
     path('', main, name="main"),
     path('main2/', main2, name="main2"),
     path('show/<int:id>', show, name="show"),

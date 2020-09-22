@@ -19,12 +19,12 @@ class PostForm(ModelForm):
             'price' : ('가격'),
             'remaining' : ('재고'),
         }
-    help_text = {
-        'title': ('제목을 입력해주세요'),
-        'content': ('내용을 입력해주세요'),
-        'price': ('가격을 입력해주세요'),
-        'remaining': ('재고를 입력해주세요'),
-    }
+        help_texts = {
+            'title': ('제목을 입력해주세요.'),
+            'content': ('내용을 입력해주세요.'),
+            'price': ('가격을 입력해주세요.'),
+            'remaining': ('재고를 입력해주세요.'),
+        }
 
     def save(self, **kwargs):
         post = super().save(commit=False)

@@ -17,7 +17,7 @@ def create(request):
             return redirect('posts:main')
     else:
         form = PostForm()
-        return render(request, 'posts/new2.html', {'form': form})
+        return render(request, 'posts/new.html', {'form': form})
 
     
 

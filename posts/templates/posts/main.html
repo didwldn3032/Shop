@@ -32,7 +32,7 @@
         </div>        
         {% endfor %}    
     </div>
-    <a class="nav-link" href="{% url 'posts:new' %}">새글쓰기</a>
+    <a class="nav-link" href="{% url 'posts:create' %}">새글쓰기</a>
     {% else %}
     <h3>로그인 후 이용이 가능합니다.</h3>
     <a href="{% url 'account_login' %}" class="btn btn-warning">로그인</a>
